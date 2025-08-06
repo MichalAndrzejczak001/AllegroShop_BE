@@ -6,7 +6,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import spring.project.allegroshop.model.ProductDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,7 +26,7 @@ public class OfferService implements IOfferService {
     }
 
     @Override
-    public String searchOffers(String phrase, int limit, String sort) {
+    public List<ProductDto> searchOffers(String phrase, int limit, String sort) {
         Mono<String> responseMono =  webClient.get()
                .uri(uriBuilder -> uriBuilder
                         .path("/offers/listing")
@@ -41,31 +43,27 @@ public class OfferService implements IOfferService {
         JSONArray items = json.getJSONObject("items").getJSONArray("regular");
 
         String result = "";
-
+        List<ProductDto> productDtos = new ArrayList<>();
         for (int i = 0; i < items.length(); i++) {
             JSONObject item = items.getJSONObject(i);
 
             String id = item.optString("id");
-            result += "id" + i + ":" + id + "\n";
-            String name = item.optString("name");
-            result += "name" + i + ":" + name + "\n";
 
-            // Pobierz pierwszy obrazek (jeśli istnieje)
+            String name = item.optString("name");
+
             String imageUrl = "";
             JSONArray images = item.optJSONArray("images");
             if (images != null && images.length() > 0) {
                 imageUrl = images.getJSONObject(0).optString("url");
             }
-            result += "url" + i + ":" + imageUrl + "\n";
 
-            // Pobierz cenę
             JSONObject priceObj = item.optJSONObject("sellingMode").optJSONObject("price");
             String price = priceObj != null ? priceObj.optString("amount") : "";
-            result += "price" + i + ":" + price + "\n";
+
+            productDtos.add(new ProductDto(id, name, imageUrl, price));
 
         }
-        System.out.println(result);
-
-        return result;
+        System.out.println(productDtos);
+        return productDtos;
     }
 }
