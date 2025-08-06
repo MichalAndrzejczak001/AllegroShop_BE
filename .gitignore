@@ -1,16 +1,58 @@
-# Compiled class file
+### IntelliJ ###
+# IntelliJ project files
+.idea/
+*.iml
+
+# User-specific IntelliJ stuff
+**/.idea/**/workspace.xml
+**/.idea/**/tasks.xml
+**/.idea/**/usage.statistics.xml
+**/.idea/**/dictionaries
+**/.idea/**/shelf
+**/.idea/**/aws.xml
+**/.idea/**/contentModel.xml
+**/.idea/**/dataSources/
+**/.idea/**/dataSources.ids
+**/.idea/**/dataSources.local.xml
+**/.idea/**/sqlDataSources.xml
+**/.idea/**/dynamic.xml
+**/.idea/**/uiDesigner.xml
+**/.idea/**/dbnavigator.xml
+**/.idea/**/gradle.xml
+**/.idea/**/libraries
+**/.idea/**/mongoSettings.xml
+**/.idea/**/sonarlint/
+**/.idea/**/sonarIssues.xml
+**/.idea/**/markdown-navigator.xml
+**/.idea/**/markdown-navigator-enh.xml
+**/.idea/**/markdown-navigator/
+.idea/replstate.xml
+.idea/httpRequests
+.idea/caches/build_file_checksums.ser
+.idea/$CACHE_FILE$
+.idea/codestream.xml
+**/.idea/**/azureSettings.xml
+
+# Other IDE formats
+*.iws
+**/out/
+**/.idea_modules/
+
+### Java ###
+# Compiled class files
 *.class
 
-# Log file
+# Logs and dumps
 *.log
+hs_err_pid*
+*.hprof
+replay_pid*
 
-# BlueJ files
+# Other
 *.ctxt
-
-# Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+### Packages ###
 *.jar
 *.war
 *.nar
@@ -19,6 +61,20 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+### Gradle ###
+# Gradle caches and build outputs
+.gradle/
+**/build/
+**/build/tmp/
+
+# Gradle wrapper; keep the jar and properties
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# Gradle configuration
+gradle-app.setting
+.gradletasknamecache
+
+### Eclipse ###
+.project
+.classpath
