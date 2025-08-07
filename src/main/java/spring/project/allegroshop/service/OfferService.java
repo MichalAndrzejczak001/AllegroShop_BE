@@ -39,11 +39,11 @@ public class OfferService implements IOfferService {
 
         String jsonString = responseMono.block();
 
+        List<ProductDto> productDtos = new ArrayList<>();
+
         JSONObject json = new JSONObject(jsonString);
         JSONArray items = json.getJSONObject("items").getJSONArray("regular");
 
-        String result = "";
-        List<ProductDto> productDtos = new ArrayList<>();
         for (int i = 0; i < items.length(); i++) {
             JSONObject item = items.getJSONObject(i);
 
@@ -63,6 +63,29 @@ public class OfferService implements IOfferService {
             productDtos.add(new ProductDto(id, name, imageUrl, price));
 
         }
+
+        items = json.getJSONObject("items").getJSONArray("promoted");
+
+        for (int i = 0; i < items.length(); i++) {
+            JSONObject item = items.getJSONObject(i);
+
+            String id = item.optString("id");
+
+            String name = item.optString("name");
+
+            String imageUrl = "";
+            JSONArray images = item.optJSONArray("images");
+            if (images != null && images.length() > 0) {
+                imageUrl = images.getJSONObject(0).optString("url");
+            }
+
+            JSONObject priceObj = item.optJSONObject("sellingMode").optJSONObject("price");
+            String price = priceObj != null ? priceObj.optString("amount") : "";
+
+            productDtos.add(new ProductDto(id, name, imageUrl, price));
+
+        }
+
         System.out.println(productDtos);
         return productDtos;
     }
